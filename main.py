@@ -19,7 +19,7 @@ async def run_ocr(file: UploadFile = File(...)):
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_in:
             tmp_in.write(await file.read())
             tmp_in_path = tmp_in.name
-            
+
         ocrlangs = os.getenv("OCR_LANGS", "deu+eng")
         # Ausgabedateien
         tmp_out = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
@@ -29,7 +29,7 @@ async def run_ocr(file: UploadFile = File(...)):
 
         # OCRmyPDF ausführen
         subprocess.run(
-            ["ocrmypdf", "--sidecar", "--language", ocrlangs, tmp_txt.name, tmp_in_path, tmp_out.name],
+            ["ocrmypdf", "--sidecar", tmp_txt.name, "-l", ocrlangs, tmp_in_path, tmp_out.name],
             check=True
         )
 
