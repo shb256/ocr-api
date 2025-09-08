@@ -6,4 +6,4 @@ services:
       - "8000:8000"
     restart: unless-stopped
     environment:
-      - OCR_LANGS=eng+deu
+      - OCR_LANGS=deu
